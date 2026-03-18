@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext'
 import PrivateRoute from './components/PrivateRoute'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import CursorGlow from './components/animations/CursorGlow'
 
 // Public pages
 import Home from './pages/Home'
@@ -21,9 +22,10 @@ import Messages from './pages/Messages'
 
 function PublicLayout({ children }) {
     return (
-        <div className="flex flex-col min-h-screen bg-bg">
+        <div className="flex flex-col min-h-screen bg-bg relative">
+            <CursorGlow />
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 relative z-10">{children}</main>
             <Footer />
         </div>
     )

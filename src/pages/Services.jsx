@@ -1,62 +1,38 @@
 import { motion } from 'framer-motion'
-
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
-}
-const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-}
+import CharReveal from '../components/animations/TextReveal'
+import Aurora from '../components/animations/Aurora'
+import ScrollReveal from '../components/animations/ScrollReveal'
 
 const services = [
     {
-        icon: '🎨',
-        title: 'UI/UX Design',
+        icon: '🎨', title: 'UI/UX Design', num: '01',
         desc: 'We design intuitive, beautiful interfaces grounded in user psychology. Our design systems are scalable, consistent, and conversion-focused.',
         features: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems'],
-        color: 'from-blue-500/20 to-cyan-500/20',
-        border: 'border-blue-500/20',
     },
     {
-        icon: '⚡',
-        title: 'Web Development',
+        icon: '⚡', title: 'Web Development', num: '02',
         desc: 'From React apps to full-stack platforms, we build performant, scalable digital products that users love.',
         features: ['React / Next.js', 'Node.js APIs', 'Database Design', 'DevOps & CI/CD'],
-        color: 'from-purple-500/20 to-pink-500/20',
-        border: 'border-purple-500/20',
     },
     {
-        icon: '🚀',
-        title: 'Digital Strategy',
+        icon: '🚀', title: 'Digital Strategy', num: '03',
         desc: 'Data-driven strategies that define market positioning, growth channels, and measurable ROI for ambitious brands.',
         features: ['Market Research', 'SEO/SEM', 'Analytics Setup', 'Growth Planning'],
-        color: 'from-green-500/20 to-teal-500/20',
-        border: 'border-green-500/20',
     },
     {
-        icon: '🔮',
-        title: 'Brand Identity',
+        icon: '🔮', title: 'Brand Identity', num: '04',
         desc: 'Cohesive visual identities that communicate your values at a glance. Logo, typography, color, and voice — all unified.',
         features: ['Logo Design', 'Brand Guidelines', 'Typography', 'Brand Voice'],
-        color: 'from-orange-500/20 to-red-500/20',
-        border: 'border-orange-500/20',
     },
     {
-        icon: '📱',
-        title: 'Mobile Apps',
+        icon: '📱', title: 'Mobile Apps', num: '05',
         desc: 'Polished iOS and Android applications that extend your digital presence into users\' pockets.',
         features: ['React Native', 'Native iOS/Android', 'App Store Optimization', 'Push Notifications'],
-        color: 'from-cyan-500/20 to-blue-500/20',
-        border: 'border-cyan-500/20',
     },
     {
-        icon: '🛡️',
-        title: 'Maintenance & Support',
+        icon: '🛡️', title: 'Maintenance & Support', num: '06',
         desc: 'We stand behind everything we build. Ongoing monitoring, updates, and support to keep your digital assets performing.',
         features: ['24/7 Monitoring', 'Security Patches', 'Performance Tuning', 'Feature Additions'],
-        color: 'from-yellow-500/20 to-orange-500/20',
-        border: 'border-yellow-500/20',
     },
 ]
 
@@ -71,55 +47,70 @@ export default function Services() {
         >
             {/* Header */}
             <section className="relative py-24 overflow-hidden">
-                <div className="absolute inset-0 grid-bg opacity-40" />
-                <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+                <Aurora intensity={0.45} />
+                <div className="absolute inset-0 grid-bg opacity-20" />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                    <span className="text-[10vw] font-black text-white/[0.015] whitespace-nowrap tracking-wider">SERVICES</span>
+                </div>
                 <div className="relative max-w-7xl mx-auto px-6 text-center">
-                    <motion.div initial="hidden" animate="visible" variants={containerVariants}>
-                        <motion.span variants={itemVariants} className="text-accent text-sm font-semibold uppercase tracking-widest mb-4 block">
+                    <ScrollReveal direction="up" distance={20}>
+                        <span className="text-accent text-sm font-semibold uppercase tracking-widest mb-4 block">
                             What We Offer
-                        </motion.span>
-                        <motion.h1 variants={itemVariants} className="section-title text-5xl md:text-6xl mb-6">
-                            Services Built for Impact
-                        </motion.h1>
-                        <motion.p variants={itemVariants} className="text-gray-400 text-lg max-w-2xl mx-auto">
+                        </span>
+                    </ScrollReveal>
+                    <CharReveal
+                        text="Services Built for Impact"
+                        as="h1"
+                        className="section-title text-5xl md:text-6xl mb-6"
+                        stagger={0.025}
+                        delay={0.2}
+                        scrollTrigger={false}
+                    />
+                    <ScrollReveal direction="up" delay={0.5}>
+                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
                             We offer a full suite of digital services to take your brand from vision to reality — and beyond.
-                        </motion.p>
-                    </motion.div>
+                        </p>
+                    </ScrollReveal>
                 </div>
             </section>
 
             {/* Services Grid */}
             <section className="pb-24">
                 <div className="max-w-7xl mx-auto px-6">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={containerVariants}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                    >
-                        {services.map((s) => (
-                            <motion.div
-                                key={s.title}
-                                variants={itemVariants}
-                                whileHover={{ y: -6 }}
-                                className={`relative rounded-2xl p-7 border ${s.border} card-hover overflow-hidden`}
-                                style={{ background: `linear-gradient(135deg, ${s.color.split(' ')[0].replace('from-', 'rgba(').replace('/20', ',0.1)')} 0%, transparent 100%)` }}
-                            >
-                                <div className="text-5xl mb-5">{s.icon}</div>
-                                <h3 className="text-white text-xl font-bold mb-3">{s.title}</h3>
-                                <p className="text-gray-400 text-sm leading-relaxed mb-5">{s.desc}</p>
-                                <ul className="flex flex-col gap-2">
-                                    {s.features.map((f) => (
-                                        <li key={f} className="flex items-center gap-2 text-gray-400 text-sm">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-                                            {f}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </motion.div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {services.map((s, i) => (
+                            <ScrollReveal key={s.title} direction="up" delay={i * 0.08} distance={40}>
+                                <motion.div
+                                    whileHover={{ y: -8, rotateX: 2, rotateY: -2 }}
+                                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                                    className="relative rounded-2xl p-7 border border-white/5 card-3d overflow-hidden group glass h-full"
+                                >
+                                    <span className="absolute -top-4 -right-2 text-9xl font-black text-white/[0.02] group-hover:text-accent/[0.06] transition-colors duration-700 select-none leading-none">
+                                        {s.num}
+                                    </span>
+                                    <div className="absolute inset-0 bg-gradient-to-br from-accent/0 to-primary/0 group-hover:from-accent/[0.06] group-hover:to-primary/[0.04] transition-all duration-700 rounded-2xl" />
+
+                                    <div className="relative z-10">
+                                        <div className="flex items-center gap-3 mb-5">
+                                            <div className="text-4xl group-hover:scale-110 transition-transform duration-300">{s.icon}</div>
+                                            <span className="text-xs font-mono text-accent/50 tracking-widest">{s.num}</span>
+                                            <div className="h-px flex-1 bg-white/5" />
+                                        </div>
+                                        <h3 className="text-white text-xl font-bold mb-3">{s.title}</h3>
+                                        <p className="text-gray-400 text-sm leading-relaxed mb-5">{s.desc}</p>
+                                        <ul className="flex flex-col gap-2">
+                                            {s.features.map((f) => (
+                                                <li key={f} className="flex items-center gap-2 text-gray-400 text-sm">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                                                    {f}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </motion.div>
+                            </ScrollReveal>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
         </motion.div>

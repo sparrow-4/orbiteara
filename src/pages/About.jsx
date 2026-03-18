@@ -1,13 +1,8 @@
 import { motion } from 'framer-motion'
-
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
-}
-const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-}
+import CharReveal from '../components/animations/TextReveal'
+import Aurora from '../components/animations/Aurora'
+import ScrollReveal from '../components/animations/ScrollReveal'
+import ParallaxSection from '../components/animations/ParallaxSection'
 
 const team = [
     { name: 'Thoyyib C.', role: 'Founder & CEO', initials: 'TC', color: 'from-primary to-accent' },
@@ -34,106 +29,122 @@ export default function About() {
         >
             {/* Hero */}
             <section className="relative py-24 overflow-hidden">
-                <div className="absolute inset-0 grid-bg opacity-40" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+                <Aurora intensity={0.5} />
+                <div className="absolute inset-0 grid-bg opacity-20" />
+
+                {/* Background watermark */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                    <span className="text-[10vw] font-black text-white/[0.015] whitespace-nowrap tracking-wider">ABOUT US</span>
+                </div>
 
                 <div className="relative max-w-7xl mx-auto px-6">
-                    <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={containerVariants}
-                        className="text-center max-w-3xl mx-auto"
-                    >
-                        <motion.span variants={itemVariants} className="text-accent text-sm font-semibold uppercase tracking-widest mb-4 block">
-                            Our Story
-                        </motion.span>
-                        <motion.h1 variants={itemVariants} className="section-title text-5xl md:text-6xl mb-6">
-                            Built to Elevate
-                        </motion.h1>
-                        <motion.p variants={itemVariants} className="text-gray-400 text-lg leading-relaxed">
-                            Orbitera was founded with a single mission: to craft digital experiences so exceptional,
-                            they become the benchmark for excellence. We're a team of designers, developers, and visionaries
-                            who believe the future deserves better design.
-                        </motion.p>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Mission */}
-            <section className="py-16">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <motion.div
-                            initial={{ opacity: 0, x: -40 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7 }}
-                        >
-                            <span className="text-accent text-sm font-semibold uppercase tracking-widest mb-3 block">Mission</span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                                We Don't Just Build Websites.<br />
-                                <span className="text-accent">We Build Brands.</span>
-                            </h2>
-                            <p className="text-gray-400 leading-relaxed mb-6">
-                                In a world full of digital noise, we create signal. Every project we take on becomes a
-                                statement — a fusion of strategy, aesthetics, and technology that moves markets.
+                    <div className="text-center max-w-3xl mx-auto">
+                        <ScrollReveal direction="up" distance={20} duration={0.5}>
+                            <span className="text-accent text-sm font-semibold uppercase tracking-widest mb-4 block">
+                                Our Story
+                            </span>
+                        </ScrollReveal>
+                        <CharReveal
+                            text="Built to Elevate"
+                            as="h1"
+                            className="section-title text-5xl md:text-6xl mb-6"
+                            stagger={0.025}
+                            delay={0.2}
+                            scrollTrigger={false}
+                        />
+                        <ScrollReveal direction="up" delay={0.6}>
+                            <p className="text-gray-400 text-lg leading-relaxed">
+                                Orbitera was founded with a single mission: to craft digital experiences so exceptional,
+                                they become the benchmark for excellence. We're a team of designers, developers, and visionaries
+                                who believe the future deserves better design.
                             </p>
-                            <p className="text-gray-400 leading-relaxed">
-                                From early-stage startups to established enterprises, we bring the same obsessive
-                                attention to detail and drive for perfection to every engagement.
-                            </p>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: 40 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7 }}
-                            className="grid grid-cols-2 gap-4"
-                        >
-                            {values.map((v) => (
-                                <div key={v.title} className="glass rounded-xl p-5 border border-white/5 hover:border-accent/20 transition-all">
-                                    <div className="text-3xl mb-3">{v.icon}</div>
-                                    <h4 className="text-white font-semibold mb-1">{v.title}</h4>
-                                    <p className="text-gray-500 text-sm">{v.desc}</p>
-                                </div>
-                            ))}
-                        </motion.div>
+                        </ScrollReveal>
                     </div>
                 </div>
             </section>
 
-            {/* Team */}
-            <section className="py-16">
-                <div className="max-w-7xl mx-auto px-6">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={containerVariants}
-                    >
-                        <motion.div variants={itemVariants} className="text-center mb-12">
-                            <span className="text-accent text-sm font-semibold uppercase tracking-widest mb-3 block">Meet The Team</span>
-                            <h2 className="section-title">The Minds Behind the Magic</h2>
-                        </motion.div>
+            {/* Mission */}
+            <ParallaxSection speed={0.1}>
+                <section className="py-16">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <ScrollReveal direction="left" distance={40}>
+                                    <span className="text-accent text-sm font-semibold uppercase tracking-widest mb-3 block">Mission</span>
+                                </ScrollReveal>
+                                <CharReveal
+                                    text="We Don't Just Build Websites."
+                                    as="h2"
+                                    className="text-3xl md:text-4xl font-bold text-white mb-2"
+                                    stagger={0.02}
+                                />
+                                <CharReveal
+                                    text="We Build Brands."
+                                    as="h2"
+                                    className="text-3xl md:text-4xl font-bold shimmer-text mb-6"
+                                    stagger={0.03}
+                                />
+                                <ScrollReveal direction="up" delay={0.3}>
+                                    <p className="text-gray-400 leading-relaxed mb-6">
+                                        In a world full of digital noise, we create signal. Every project we take on becomes a
+                                        statement — a fusion of strategy, aesthetics, and technology that moves markets.
+                                    </p>
+                                    <p className="text-gray-400 leading-relaxed">
+                                        From early-stage startups to established enterprises, we bring the same obsessive
+                                        attention to detail and drive for perfection to every engagement.
+                                    </p>
+                                </ScrollReveal>
+                            </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            {team.map((member) => (
+                            <div className="grid grid-cols-2 gap-4">
+                                {values.map((v, i) => (
+                                    <ScrollReveal key={v.title} direction="up" delay={i * 0.1} distance={30}>
+                                        <motion.div
+                                            whileHover={{ y: -6 }}
+                                            className="glass rounded-xl p-5 border border-white/5 hover:border-accent/20 transition-all card-3d group h-full"
+                                        >
+                                            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">{v.icon}</div>
+                                            <h4 className="text-white font-semibold mb-1">{v.title}</h4>
+                                            <p className="text-gray-500 text-sm">{v.desc}</p>
+                                        </motion.div>
+                                    </ScrollReveal>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </ParallaxSection>
+
+            {/* Team */}
+            <section className="py-16 relative">
+                <div className="absolute inset-0 bg-radial-glow opacity-15" />
+                <div className="relative max-w-7xl mx-auto px-6">
+                    <ScrollReveal direction="up" className="text-center mb-4">
+                        <span className="text-accent text-sm font-semibold uppercase tracking-widest block">Meet The Team</span>
+                    </ScrollReveal>
+                    <CharReveal
+                        text="The Minds Behind the Magic"
+                        as="h2"
+                        className="section-title text-center mb-12"
+                        stagger={0.02}
+                    />
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {team.map((member, i) => (
+                            <ScrollReveal key={member.name} direction="scale" delay={i * 0.1}>
                                 <motion.div
-                                    key={member.name}
-                                    variants={itemVariants}
-                                    whileHover={{ y: -6 }}
-                                    className="glass rounded-2xl p-6 text-center border border-white/5 card-hover"
+                                    whileHover={{ y: -8 }}
+                                    className="glass rounded-2xl p-6 text-center border border-white/5 card-3d group"
                                 >
-                                    <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 shadow-lg`}>
+                                    <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 shadow-lg group-hover:shadow-glow-accent transition-shadow duration-500`}>
                                         {member.initials}
                                     </div>
                                     <h4 className="text-white font-semibold mb-1">{member.name}</h4>
                                     <p className="text-gray-500 text-sm">{member.role}</p>
                                 </motion.div>
-                            ))}
-                        </div>
-                    </motion.div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
                 </div>
             </section>
         </motion.div>
